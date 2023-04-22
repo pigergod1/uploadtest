@@ -5,4 +5,6 @@ import team3.meowie.member.model.User;
 
 public interface IUserService {
 	User registerNewUser(UserDto userdto);
+	
+	User findUserByEmail(String email);
 }
