@@ -9,15 +9,14 @@ import org.springframework.stereotype.Component;
 import team3.meowie.member.service.UserService;
 
 @Component
-public class EmailValidator implements ConstraintValidator<ValidEmail, String>{
+public class EmailExistValidator implements ConstraintValidator<ExistEmail, String>{
 
 	@Autowired
 	private UserService userService;
 	
 	@Override
 	public boolean isValid(String email, ConstraintValidatorContext context) {
-		return false;
-//		return (userService.findUserByEmail(email) == null);
+		return userService.findUserByEmail(email) == null;
 	}
 
 }

@@ -9,13 +9,11 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
-
 @Target(FIELD)
 @Retention(RUNTIME)
-@Constraint(validatedBy = EmailValidator.class)
-public @interface ValidEmail {
-	String message() default "Invalid Email!";
+@Constraint(validatedBy = UsernameExistValidator.class)
+public @interface ExistUsername {
+	String message() default "User existed!";
 
 	Class<?>[] groups() default { };
 

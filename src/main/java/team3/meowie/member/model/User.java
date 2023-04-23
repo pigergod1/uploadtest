@@ -32,7 +32,7 @@ public class User {
 	private String username;
 	
 	@Column(name = "password", nullable = false)
-	private String passowrd;
+	private String password;
 	
 	@Column(name = "salt", columnDefinition = "varchar(max)", nullable = false)
 	private String salt;
@@ -82,12 +82,12 @@ public class User {
 		this.username = username;
 	}
 
-	public String getPassowrd() {
-		return passowrd;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPassowrd(String passowrd) {
-		this.passowrd = passowrd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getSalt() {

@@ -1,22 +1,31 @@
 package team3.meowie.member.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import team3.meowie.member.validation.ExistEmail;
+import team3.meowie.member.validation.ExistUsername;
 
 public class UserDto {
 	
 	@NotNull
-	@Size(min = 1)
+	@NotBlank(message = "This field shouldn't be blank")
 	private String name;
 	
 	@NotNull
-	@Size(min = 1)
+	@NotBlank(message = "This field shouldn't be blank")
+	@ExistUsername
 	private String username;
 	
-	private String passowrd;
+	@NotNull
+	@NotBlank(message = "This field shouldn't be blank")
+	private String password;
 	
 	@NotNull
-	@Size(min = 1)
+	@NotBlank(message = "This field shouldn't be blank")
+	@Email(message = "Email format error")
+	@ExistEmail
 	private String email;
 
 	public String getName() {
@@ -35,12 +44,12 @@ public class UserDto {
 		this.username = username;
 	}
 
-	public String getPassowrd() {
-		return passowrd;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPassowrd(String passowrd) {
-		this.passowrd = passowrd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmail() {

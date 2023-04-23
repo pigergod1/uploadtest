@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import team3.meowie.member.dto.UserDto;
-import team3.meowie.member.exception.EmailExistedException;
-import team3.meowie.member.exception.UserAlreadyRegisteredException;
 import team3.meowie.member.model.User;
 import team3.meowie.member.repository.UserRepository;
 
@@ -18,18 +16,13 @@ public class UserService implements IUserService {
 
 	@Override
 	public User registerNewUser(UserDto userDto) {
-		if(userExists(userDto.getUsername()))
-			throw new UserAlreadyRegisteredException("There is an username: " + userDto.getUsername() + "already used!");
-		
-		if(emailExists(userDto.getEmail()))
-			throw new EmailExistedException("There is an email: " + userDto.getEmail() + "already used!");
-		
 		User user = new User();
 		
 		user.setName(userDto.getName());
 		user.setUsername(userDto.getUsername());
-		user.setPassowrd(userDto.getPassowrd());
+		user.setPassword(userDto.getPassword());
 		user.setEmail(userDto.getEmail());
+		user.setSalt("ASDAIFDGAF");
 		return userRepository.save(user);
 	}
 
@@ -38,13 +31,11 @@ public class UserService implements IUserService {
 		return userRepository.findByEmail(email);
 	}
 
-	private boolean userExists(String username) {
-		return userRepository.findByUsername(username) != null;
+	@Override
+	public User findUserByUsername(String username) {
+		return userRepository.findByUsername(username);
 	}
 
-	private boolean emailExists(String email) {
-		return userRepository.findByEmail(email) != null;
-	}
 	
 
 }

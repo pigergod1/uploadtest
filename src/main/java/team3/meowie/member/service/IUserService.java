@@ -7,4 +7,7 @@ public interface IUserService {
 	User registerNewUser(UserDto userdto);
 	
 	User findUserByEmail(String email);
+	
+	User findUserByUsername(String username);
+	
 }
