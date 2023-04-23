@@ -48,7 +48,7 @@ public class TopMovielistService {
 				html = response.body();
 				Document doc = Jsoup.parse(html);
 				moviename = doc.select("dd>h2").text();
-				moviename += doc.select("dd>h3").text();
+//				moviename += doc.select("dd>h3").text();
 				TopMovielist list1 = new TopMovielist();
 				list1.setMoviename(moviename);
 				toplistRepository.save(list1);
@@ -67,5 +67,8 @@ public class TopMovielistService {
 			e.printStackTrace();
 		}
 		return relist;
+	}
+	public List<TopMovielist> getTopMovielistAll() {
+		return toplistRepository.findAll();
 	}
 }
