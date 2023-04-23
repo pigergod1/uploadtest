@@ -48,7 +48,6 @@ public class TopMovielistService {
 				html = response.body();
 				Document doc = Jsoup.parse(html);
 				moviename = doc.select("dd>h2").text();
-//				moviename += doc.select("dd>h3").text();
 				TopMovielist list1 = new TopMovielist();
 				list1.setMoviename(moviename);
 				toplistRepository.save(list1);
@@ -63,7 +62,6 @@ public class TopMovielistService {
 			}
 
 		} catch (IOException | InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return relist;

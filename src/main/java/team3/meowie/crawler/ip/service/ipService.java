@@ -1,8 +1,8 @@
 package team3.meowie.crawler.ip.service;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class ipService {
 
 }

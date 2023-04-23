@@ -45,7 +45,6 @@ public class CommentsService {
 			if (response.statusCode() == 200) {
 				String html = response.body();
 				Document doc = Jsoup.parse(html);
-//				System.out.println(doc.select(".release_movie_name a").attr("href"));
 				if (!doc.select(".release_movie_name a").attr("href").equals("")) {
 					url = doc.select(".release_movie_name a").attr("href");
 					request = reqBuilder.uri(URI.create(url)).build();
@@ -121,9 +120,11 @@ public class CommentsService {
 			autoCrawlerCommentsFromYahoo(moviename);
 		}
 	}
-
+	//留言去除無法存入DB的表情符號
 	private String RegExpComment(String uncheck) {
 		return uncheck.replaceAll("[^\\u4e00-\\u9fa5A-Za-z0-9\\s\\p{P}]+", "");
 	}
+	
+	
 
 }
