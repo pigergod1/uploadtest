@@ -7,43 +7,32 @@
 <meta charset="UTF-8">
 
 <jstl:set var="contextRoot" value="${pageContext.request.contextPath}" />
-<link href="${contextRoot}/css/sideNavbar.css" rel="stylesheet">
+<link href="${contextRoot}/css/discussion/sideNavbar.css"
+	rel="stylesheet">
 </head>
 <body>
 	<div class="area"></div>
 	<nav class="main-menu">
 		<ul>
-			<li class="has-subnav"><a href="${contextRoot}/index"> <i
+			<li class="has-subnav"><a href="${contextRoot}/dic/index"> <i
 					class="fa fa-camera-retro fa-2x"></i> <span class="nav-text">
 						主頁</span>
 			</a></li>
-			<li><a href="${contextRoot}/articleManagement"> <i
-					class="fa fa-home fa-2x"></i> <span class="nav-text"> 文章管理(編輯、刪除) </span>
+			<li class="has-subnav"><a
+				href="${contextRoot}/dic/addArticle"> <i
+					class="fa fa-camera-retro fa-2x"></i> <span class="nav-text">
+						新增文章</span>
 			</a></li>
 			<li class="has-subnav"><a
-				href="${contextRoot}/commentManagement"> <i
+				href="${contextRoot}/dic/commentManagement"> <i
 					class="fa fa-globe fa-2x"></i> <span class="nav-text"> 評論管理</span>
 			</a></li>
 			<li class="has-subnav"><a
-				href="${contextRoot}/notificationManagement"> <i
+				href="${contextRoot}/dic/notificationManagement"> <i
 					class="fa fa-comments fa-2x"></i> <span class="nav-text">
 						通知管理 </span>
 			</a></li>
-			<li><a href="#"> <i class="fa fa-film fa-2x"></i> <span
-					class="nav-text"> 搜索框 </span>
-			</a></li>
-			<li><a href="#"> <i class="fa fa-book fa-2x"></i> <span
-					class="nav-text"> Surveying Jobs </span>
-			</a></li>
-			<li><a href="#"> <i class="fa fa-cogs fa-2x"></i> <span
-					class="nav-text"> Tools & Resources </span>
-			</a></li>
-			<li><a href="#"> <i class="fa fa-map-marker fa-2x"></i> <span
-					class="nav-text"> Member Map </span>
-			</a></li>
-			<li><a href="#"> <i class="fa fa-info fa-2x"></i> <span
-					class="nav-text"> Documentation </span>
-			</a></li>
+
 		</ul>
 
 		<ul class="logout">
