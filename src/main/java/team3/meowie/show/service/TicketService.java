@@ -11,10 +11,8 @@ public class TicketService {
     private TicketRepository ticketRepository;
 
     public Integer getTicketRemaining(Integer movieID) {
-        
-    	
     	TicketRepository getN = ticketRepository;
 		return getN.countUnpaidTicketsByMovieID(movieID);
-		
     }
+    
 }
