@@ -8,5 +8,4 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 	@Query("SELECT COUNT(t) FROM Ticket t WHERE t.showID = ?1 AND t.payed = false")
 	Integer countUnpaidTicketsByMovieID(Integer movieID);
 
-
 }
