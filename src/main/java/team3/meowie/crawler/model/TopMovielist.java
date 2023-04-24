@@ -1,4 +1,4 @@
-package team3.meowie.movie.model;
+package team3.meowie.crawler.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,16 +8,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "movielist")
-public class Movie {
-	
+@Table(name = "crawlerTopMovielist")
+public class TopMovielist {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
-	private Integer movieid;
+	@Column(name = "id")
+	private Integer id;
 
 	@Column(name = "moviename")
 	private String moviename;
+
+	@Override
+	public String toString() {
+		return "TopMovielist [id=" + id + ", moviename=" + moviename + "]";
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getMoviename() {
 		return moviename;
@@ -27,12 +39,7 @@ public class Movie {
 		this.moviename = moviename;
 	}
 
-	public Integer getMovieid() {
-		return movieid;
-	}
-
-	public void setMovieid(Integer movieid) {
-		this.movieid = movieid;
+	public TopMovielist() {
 	}
 
 }
