@@ -21,7 +21,7 @@ public class UserDto {
 	@NotNull
 	@NotBlank(message = "This field shouldn't be blank")
 	private String password;
-	
+
 	@NotNull
 	@NotBlank(message = "This field shouldn't be blank")
 	@Email(message = "Email format error")
@@ -59,5 +59,5 @@ public class UserDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 }

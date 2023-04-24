@@ -1,12 +1,17 @@
 package team3.meowie.member.model;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,7 +27,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "userid")
+	@Column(name = "user_id")
 	private Integer id;
 	
 	@Column(name = "name", nullable = false)
@@ -34,9 +39,6 @@ public class User {
 	@Column(name = "password", nullable = false)
 	private String password;
 	
-	@Column(name = "salt", columnDefinition = "varchar(max)", nullable = false)
-	private String salt;
-	
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 	
@@ -47,6 +49,11 @@ public class User {
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "registerDate", columnDefinition = "datetime", nullable = false)
 	private Date registerDate;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
+	private Collection<Role> roles;
 	
 	@PrePersist
 	public void onRegister() {
@@ -90,14 +97,6 @@ public class User {
 		this.password = password;
 	}
 
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -120,6 +119,14 @@ public class User {
 
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
 	}
 
 }

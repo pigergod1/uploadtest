@@ -37,6 +37,7 @@ public class UserController {
 		if(result.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
 			List<FieldError> errorList = result.getFieldErrors();
+			
 			FieldError error = null;
 			for(int i = 0; i < errorList.size(); i++) {
 				error = errorList.get(i);

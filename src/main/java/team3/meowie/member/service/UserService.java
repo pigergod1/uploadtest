@@ -1,6 +1,7 @@
 package team3.meowie.member.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import team3.meowie.member.dto.UserDto;
@@ -12,7 +13,10 @@ import team3.meowie.member.repository.UserRepository;
 public class UserService implements IUserService {
 	
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public User registerNewUser(UserDto userDto) {
@@ -20,9 +24,8 @@ public class UserService implements IUserService {
 		
 		user.setName(userDto.getName());
 		user.setUsername(userDto.getUsername());
-		user.setPassword(userDto.getPassword());
+		user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 		user.setEmail(userDto.getEmail());
-		user.setSalt("ASDAIFDGAF");
 		return userRepository.save(user);
 	}
 
