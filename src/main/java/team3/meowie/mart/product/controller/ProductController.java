@@ -41,8 +41,8 @@ public class ProductController {
             @RequestParam (defaultValue = "desc")String sort, //升序或降序
 
             //分頁 Pagination
-            @RequestParam Integer limit, //取得幾筆數據，是sql語法
-            @RequestParam Integer offset //跳過幾筆數據，是sql語法
+            @RequestParam (required = false)Integer limit, //取得幾筆數據，是sql語法
+            @RequestParam (required = false)Integer offset //跳過幾筆數據，是sql語法
     ){
         //用ProductQueryParams來整理全部的變數，會讓程式碼更簡潔
         //未來只要想新增變數，只要在Controller層新增一個參數，然後在ProductQueryParams裡面新增一個變數就可以了
