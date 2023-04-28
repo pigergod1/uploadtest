@@ -1,35 +1,82 @@
 package team3.meowie.mart.product.service;
 
-
-import team3.meowie.mart.product.dto.ProductQueryParams;
-import team3.meowie.mart.product.dto.ProductRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import team3.meowie.mart.product.model.Product;
+import team3.meowie.mart.product.model.ProductRepository;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.Optional;
 
 /**
  * ClassName:ProductService
  * Description:
- * Create:2023/4/24 下午 06:38
+ * Create:2023/4/28 上午 11:12
  */
+@Service
+public class ProductService {
 
-public interface ProductService {
-    //查詢所有商品
-    List<Product> getProducts(ProductQueryParams productQueryParams );
+    @Autowired
+    private ProductRepository productRepository;
 
-    //直接複製ProductDao.java的方法
-    Product getProductById(Integer productId);
+    public void addProduct(Product product) {
+        productRepository.save(product);//save()方法是JpaRepository的方法
+    }
 
-    //新增一個方法，用來創建商品
-    //返回值是Integer，因為我們預期會返回一個productId給前端
-    //定義完方法後，去ProductserviceImpl.java實作
-    Integer createProduct(ProductRequest productRequest);
+    public Product findProductById(Integer id) {
+        Optional<Product> option = productRepository.findById(id);
 
-    //因為沒有返回值，所以不用寫return
-    void updateProduct(Integer productId, ProductRequest productRequest);
+        if(option.isEmpty()) {
+            return null;
+        }
 
-    //沒有返回值
-    void deleteProductById(Integer productId);
+        return option.get();
+    }
+
+    public void deleteProductById(Integer id) {
+
+        productRepository.deleteById(id);
+    }
+
+    public Page<Product> findByPage(Integer pageNumber){
+        Pageable pgb = PageRequest.of(pageNumber-1, 3, Sort.Direction.DESC, "added");
+        Page<Product> page = productRepository.findAll(pgb);
+        return page;
+    }
+
+
+
+    @Transactional
+    public Product  updateById(Product product) throws IOException {
+        Optional<Product> option = productRepository.findById(product.getId());
+
+
+        if(option.isPresent()) {
+            Product oldproduct = option.get();
+            oldproduct.setName(product.getName());
+            oldproduct.setPrice(product.getPrice());
+            oldproduct.setDescription(product.getDescription());
+            oldproduct.setCategory(product.getCategory());
+            oldproduct.setAdded(product.getAdded());
+            oldproduct.setImage(product.getImage());
+            oldproduct.setQuantity(product.getQuantity());
+
+return oldproduct;
+
+        }
+        return null;
+    }
+
+    public Product getLatest() {
+        return productRepository.findFirstByOrderByAddedDesc();
+    }
 
 
 }
+
+

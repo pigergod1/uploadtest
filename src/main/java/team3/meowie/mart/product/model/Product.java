@@ -1,71 +1,90 @@
 package team3.meowie.mart.product.model;
 
-import team3.meowie.mart.product.constant.ProductCategory;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * ClassName:Product
  * Description:
- * Create:2023/4/24 下午 06:40
+ * Create:2023/4/28 上午 11:01
  */
+@Entity
+@Table(name = "product")
 public class Product {
-    private Integer productId;
-    private String productName;
-    private ProductCategory category;
-    private String imageurl;
-    private Integer price;
-    private Integer stock;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "name", columnDefinition = "nvarchar(200)", nullable = true)
+    private String name;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss EEEE",timezone = "GMT+8")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+    @Column(name = "added", columnDefinition = "datetime")
+    private Date added;
+
+    @Column(name = "price", columnDefinition = "nvarchar(200)", nullable = true)
+    private String price;
+
+    @Column(name = "description", columnDefinition = "nvarchar(200)", nullable = true)
     private String description;
-    private Date CreateDate;
-    private Date lastModifiedDate;
 
-    public Integer getProductId() {
-        return productId;
+    @Column(name = "image", columnDefinition = "nvarchar(200)", nullable = true)
+    private String image;
+
+    @Column(name = "category", columnDefinition = "nvarchar(200)", nullable = true)
+    private String category;
+
+    @Column(name = "quantity", columnDefinition = "nvarchar(200)", nullable = true)
+
+
+    private String quantity;
+
+    @PrePersist
+    public void onCreated() {
+        if(added == null) {
+            added = new Date();
+        }
+    }
+    public Product() {
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public Integer getId() {
+        return id;
     }
 
-    public String getProductName() {
-        return productName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public String getName() {
+        return name;
     }
 
-    public ProductCategory getCategory() {
-        return category;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setCategory(ProductCategory category) {
-        this.category = category;
+    public Date getAdded() {
+        return added;
     }
 
-    public String getImageurl() {
-        return imageurl;
+    public void setAdded(Date added) {
+        this.added = added;
     }
 
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
-    }
-
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(String price) {
         this.price = price;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
     }
 
     public String getDescription() {
@@ -76,19 +95,27 @@ public class Product {
         this.description = description;
     }
 
-    public Date getCreateDate() {
-        return CreateDate;
+    public String getImage() {
+        return image;
     }
 
-    public void setCreateDate(Date createDate) {
-        CreateDate = createDate;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
+    public String getCategory() {
+        return category;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 }
