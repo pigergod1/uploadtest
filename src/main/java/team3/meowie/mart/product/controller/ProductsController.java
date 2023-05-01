@@ -1,19 +1,32 @@
 package team3.meowie.mart.product.controller;
 
+import org.hibernate.AssertionFailure;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import team3.meowie.mart.product.model.Product;
 import team3.meowie.mart.product.model.ProductRepository;
 import team3.meowie.mart.product.service.ProductService;
 
+import javax.persistence.Id;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.Base64;
 import java.util.List;
+
+
 
 /**
  * ClassName:ProductsController
@@ -29,9 +42,13 @@ public class ProductsController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private static final Logger log = LoggerFactory.getLogger(ProductsController.class);
+
     @GetMapping("/product/add")
     public String addProduct(Model model,ModelAndView modelAndView) {
         model.addAttribute("product", new Product());
+
 
         Product latest = productService.getLatest();
         model.addAttribute("latest", latest);
@@ -40,8 +57,11 @@ public class ProductsController {
 
 
     @PostMapping("/product/post")
-    public String postProduct(Product product, Model model) {
+    public String postProduct(Product product, Model model)throws IOException {
+        product.setCoverImage(product.getImageFile().getBytes());
+
         productService.addProduct(product);
+
 
         model.addAttribute("product", new Product());
 
@@ -76,6 +96,7 @@ public class ProductsController {
 
     @PutMapping("/product/editpage")
     public String putEditedProduct(@ModelAttribute("product") Product product) throws IOException {
+        product.setCoverImage(product.getImageFile().getBytes());
 
             productService.updateById(product);
 
@@ -83,6 +104,17 @@ public class ProductsController {
         return "redirect:/product";
 
     }
+
+    @GetMapping(value = "/product/{id}") //顯示討論版圖片
+    public ResponseEntity<byte[]> getCoverImage(@PathVariable("id") Integer id) {
+        byte[] image = productService.getProductById(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        headers.setContentLength(image.length);
+        return new ResponseEntity<>(image, headers, HttpStatus.OK);
+    }
+
+
 }
 
 

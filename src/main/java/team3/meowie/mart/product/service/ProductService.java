@@ -7,10 +7,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import team3.meowie.mart.product.model.Product;
 import team3.meowie.mart.product.model.ProductRepository;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 /**
@@ -63,8 +67,9 @@ public class ProductService {
             oldproduct.setDescription(product.getDescription());
             oldproduct.setCategory(product.getCategory());
             oldproduct.setAdded(product.getAdded());
-            oldproduct.setImage(product.getImage());
+            oldproduct.setCoverImage(product.getCoverImage());
             oldproduct.setQuantity(product.getQuantity());
+            oldproduct.setCoverImage(product.getCoverImage());
 
 return oldproduct;
 
@@ -72,9 +77,24 @@ return oldproduct;
         return null;
     }
 
+
+
     public Product getLatest() {
         return productRepository.findFirstByOrderByAddedDesc();
     }
+
+
+    public byte[] getProductById (Integer Id) {
+        Optional<Product> option = productRepository.findById(Id);
+        if (option.isPresent()) {
+            Product product = option.get();
+            return product.getCoverImage();
+        } else return null;
+    }
+
+
+
+
 
 
 }

@@ -2,6 +2,7 @@ package team3.meowie.mart.product.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -35,8 +36,12 @@ public class Product {
     @Column(name = "description", columnDefinition = "nvarchar(200)", nullable = true)
     private String description;
 
-    @Column(name = "image", columnDefinition = "nvarchar(200)", nullable = true)
-    private String image;
+    @Lob
+    @Column(name="coverImage",columnDefinition = "varbinary(max)")
+    private byte[] coverImage;
+
+    @Transient
+    private MultipartFile imageFile;
 
     @Column(name = "category", columnDefinition = "nvarchar(200)", nullable = true)
     private String category;
@@ -53,6 +58,22 @@ public class Product {
         }
     }
     public Product() {
+    }
+
+    public byte[] getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(byte[] coverImage) {
+        this.coverImage = coverImage;
+    }
+
+    public MultipartFile getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
     }
 
     public Integer getId() {
@@ -95,13 +116,7 @@ public class Product {
         this.description = description;
     }
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public String getCategory() {
         return category;

@@ -12,6 +12,11 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <link rel="stylesheet" href="${contextRoot}/css/bootstrap.min.css">
+
+    <script>
+
+
+    </script>
 </head>
 
 <body>
@@ -24,18 +29,35 @@
                 <div class="card-header"></div>
                 <div  class="card-body">
                     <form:form class="form-control" modelAttribute="product"
-                               method="post" action="${contextRoot}/product/post">
-                        <div style="margin-bottom: 8px"><span>數量</span><form:input path="quantity" class="form-control" id="" cols="30"
+                               method="post" action="${contextRoot}/product/post" enctype="multipart/form-data">
+                        <div style="margin-bottom: 8px">
+                            <span>數量</span>
+                            <form:input path="quantity" class="form-control" id="" cols="30"
                                        rows="10"></form:input></div>
-                        <div style="margin-bottom: 8px"><span>名字</span><form:input  path="name" class="form-control" id="" cols="30"
+                        <div style="margin-bottom: 8px">
+                            <span>名字</span>
+                            <form:input  path="name" class="form-control" id="" cols="30"
                                        rows="10"></form:input ></div>
-                        <div style="margin-bottom: 8px"> <span>圖片</span><form:input  path="image" class="form-control" id="" cols="30"
+                        <div style="margin-bottom: 8px">
+<%--                            <span>圖檔</span>--%>
+<%--                            <form method="post" enctype="multipart/form-data action=uploadImage">--%>
+<%--                                <input type="hidden" name="id" value="${products.id}" />--%>
+<%--                                <input type="file" name="imageFile" />--%>
+<%--                                <input type="submit" value="上傳圖片" />--%>
+                            <form:input  action="/upload" type="file" path="ImageFile" class="form-control" id="" cols="30" rows="10" readonly="true"></form:input >
+<%--                            <img src="data:image/png;base64,${Base64.getEncoder().encodeToString(product.image)}" />--%>
+                        </div>
+                         <div style="margin-bottom: 8px">
+                             <span>分類</span>
+                             <form:input  path="category" class="form-control" id="" cols="30"
                                        rows="10"></form:input ></div>
-                         <div style="margin-bottom: 8px"><span>分類</span> <form:input  path="category" class="form-control" id="" cols="30"
+                        <div style="margin-bottom: 8px">
+                            <span>價格</span>
+                            <form:input  path="price" class="form-control" id="" cols="30"
                                        rows="10"></form:input ></div>
-                        <div style="margin-bottom: 8px"><span>價格</span><form:input  path="price" class="form-control" id="" cols="30"
-                                       rows="10"></form:input ></div>
-                        <div style="margin-bottom: 8px"> <span>數量</span><form:input  path="description" class="form-control" id="" cols="30"
+                        <div style="margin-bottom: 8px">
+                            <span>數量</span>
+                            <form:input  path="description" class="form-control" id="" cols="30"
                                        rows="10"></form:input ></div>
 
                         <button type="submit" class="btn btn-primary">送出</button>

@@ -24,14 +24,15 @@
                 <div class="card-header"></div>
                 <div  class="card-body">
                     <form:form class="form-control" modelAttribute="product"
-                               method="put" action="${contextRoot}/product/editpage">
+                               method="put" action="${contextRoot}/product/editpage" enctype="multipart/form-data">
                         <form:input type="hidden" path="id"/>
                         <div style="margin-bottom: 8px"><span>數量</span><form:input path="quantity" class="form-control" id="" cols="30"
                                                                                      rows="10"></form:input></div>
                         <div style="margin-bottom: 8px"><span>名字</span><form:input  path="name" class="form-control" id="" cols="30"
                                                                                       rows="10"></form:input ></div>
-                        <div style="margin-bottom: 8px"> <span>圖片</span><form:input  path="image" class="form-control" id="" cols="30"
-                                                                                       rows="10"></form:input ></div>
+                        <div style="margin-bottom: 8px"> <span>圖片</span> <form:input  action="/upload" type="file" path="ImageFile" class="form-control" id="" cols="30" rows="10" readonly="true"></form:input ></div>
+                        <img style="width: 300px; height: 300px;"
+                             src="${contextRoot}/product/${product.id}"/>
                         <div style="margin-bottom: 8px"><span>分類</span> <form:input  path="category" class="form-control" id="" cols="30"
                                                                                        rows="10"></form:input ></div>
                         <div style="margin-bottom: 8px"><span>價格</span><form:input  path="price" class="form-control" id="" cols="30"
