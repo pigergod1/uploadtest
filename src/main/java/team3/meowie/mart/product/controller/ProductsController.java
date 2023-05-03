@@ -45,6 +45,18 @@ public class ProductsController {
     @Autowired
     private static final Logger log = LoggerFactory.getLogger(ProductsController.class);
 
+//    @GetMapping("/product/pig")
+//    public String pig(Model model) {
+//        model.addAttribute("ddd", "Hello JSP");
+//        return "product/storeindex";
+//    }
+
+    @GetMapping("/product/index")
+    public String hello(Model model) {
+        model.addAttribute("message", "Hello JSP");
+        return "product/index";
+    }
+
     @GetMapping("/product/add")
     public String addProduct(Model model,ModelAndView modelAndView) {
         model.addAttribute("product", new Product());
@@ -105,7 +117,7 @@ public class ProductsController {
 
     }
 
-    @GetMapping(value = "/product/{id}") //顯示討論版圖片
+    @GetMapping(value = "/product/{id}") //顯示圖片
     public ResponseEntity<byte[]> getCoverImage(@PathVariable("id") Integer id) {
         byte[] image = productService.getProductById(id);
         HttpHeaders headers = new HttpHeaders();

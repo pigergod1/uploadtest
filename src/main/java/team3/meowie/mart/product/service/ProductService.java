@@ -53,6 +53,12 @@ public class ProductService {
         return page;
     }
 
+    public Page<Product> findByPageMain(Integer pageNumber){
+        Pageable pgb = PageRequest.of(pageNumber-1, 6, Sort.Direction.DESC, "added");
+        Page<Product> page = productRepository.findAll(pgb);
+        return page;
+    }
+
 
 
     @Transactional
